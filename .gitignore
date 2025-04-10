@@ -4,4 +4,7 @@ test.sh
 nvim
 
 spell/
-lazy-lock.json
+# lazy-lock.json
+
+# MacOS
+.DS_Store
