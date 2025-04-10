@@ -259,7 +259,7 @@ vim.opt.rtp:prepend(lazypath)
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-  'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
+  { 'tpope/vim-sleuth', event = { 'BufReadPost', 'BufWritePost', 'BufNewFile' } }, -- Detect tabstop and shiftwidth automatically
 
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
@@ -504,8 +504,7 @@ require('lazy').setup({
       -- Automatically install LSPs and related tools to stdpath for Neovim
       -- Mason must be loaded before its dependents so we need to set it up here.
       -- NOTE: `opts = {}` is the same as calling `require('mason').setup({})`
-      -- HACK:
-      -- { 'williamboman/mason.nvim', opts = {} },
+      -- HACK: { 'williamboman/mason.nvim', opts = {} },
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
@@ -1138,29 +1137,29 @@ require('lazy').setup({
     --@type snacks.Config
     opts = {
       bigfile = { enabled = true },
-      dashboard = {
-        enabled = true,
-        preset = {
-          header = [[
-      ██╗  ██╗ █████╗ ██████╗ ██████╗  ██████╗ ██████╗ ██████╗ ███████╗ ██████╗ ██████╗ ██████╗ ███████╗██████╗
-      ██║  ██║██╔══██╗██╔══██╗██╔══██╗██╔════╝██╔═══██╗██╔══██╗██╔════╝██╔════╝██╔═══██╗██╔══██╗██╔════╝██╔══██╗
-      ███████║███████║██████╔╝██║  ██║██║     ██║   ██║██████╔╝█████╗  ██║     ██║   ██║██║  ██║█████╗  ██████╔╝
-      ██╔══██║██╔══██║██╔══██╗██║  ██║██║     ██║   ██║██╔══██╗██╔══╝  ██║     ██║   ██║██║  ██║██╔══╝  ██╔══██╗
-      ██║  ██║██║  ██║██║  ██║██████╔╝╚██████╗╚██████╔╝██║  ██║███████╗╚██████╗╚██████╔╝██████╔╝███████╗██║  ██║
-      ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝  ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝
-                ]],
-        },
-      },
+      --       dashboard = {
+      --         enabled = true,
+      --         preset = {
+      --           header = [[
+      -- ██╗  ██╗ █████╗ ██████╗ ██████╗  ██████╗ ██████╗ ██████╗ ███████╗ ██████╗ ██████╗ ██████╗ ███████╗██████╗
+      -- ██║  ██║██╔══██╗██╔══██╗██╔══██╗██╔════╝██╔═══██╗██╔══██╗██╔════╝██╔════╝██╔═══██╗██╔══██╗██╔════╝██╔══██╗
+      -- ███████║███████║██████╔╝██║  ██║██║     ██║   ██║██████╔╝█████╗  ██║     ██║   ██║██║  ██║█████╗  ██████╔╝
+      -- ██╔══██║██╔══██║██╔══██╗██║  ██║██║     ██║   ██║██╔══██╗██╔══╝  ██║     ██║   ██║██║  ██║██╔══╝  ██╔══██╗
+      -- ██║  ██║██║  ██║██║  ██║██████╔╝╚██████╗╚██████╔╝██║  ██║███████╗╚██████╗╚██████╔╝██████╔╝███████╗██║  ██║
+      -- ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝  ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝
+      --                   ]],
+      --         },
+      --       },
       indent = { enable = true },
       quickfile = { enabled = true, exlucde = { 'latex' } },
     },
   },
 
-  {
-    'folke/persistence.nvim',
-    event = 'BufReadPre',
-    opts = {},
-  },
+  -- {
+  --   'folke/persistence.nvim',
+  --   event = 'BufReadPre',
+  --   opts = {},
+  -- },
 
   { -- copilot.lua
     'zbirenbaum/copilot.lua',
