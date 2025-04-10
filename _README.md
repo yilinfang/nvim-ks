@@ -1,5 +1,22 @@
 # nvim
 
-Personal Neovim configuration based on the [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim).
+Personal [Neovim](https://neovim.io) configuration based on the [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim).
 
-**TODO**
+For the plugins I use, check the ['lazy-lock.json'](lazy-lock.json).
+
+For the other tools used in my PDE([Personal Development Environment](https://youtu.be/QMVIJhC9Veg?si=VgJQLBVTIYmNjVSDs)), check my [PDE bootstrap scripts](https://github.com/yilinfang/pde-starter).
+
+## Usage
+
+**Option 1: Clone the repository**
+
+```bash
+git clone https://github.com/yilinfang/nvim-ks.git ~/.config/nvim
+```
+
+**Option 2: Copy the `_init.lua` file to `~/.config/nvim/init.lua`**
+
+```bash
+mkdir -p ~/.config/nvim
+curl -o ~/.config/nvim/init.lua https://raw.githubusercontent.com/yilinfang/nvim-ks/main/_init.lua
+```
