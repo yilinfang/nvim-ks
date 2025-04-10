@@ -220,6 +220,12 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 -- vim.keymap.set("n", "<C-S-j>", "<C-w>J", { desc = "Move window to the lower" })
 -- vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
 
+-- Map <M-S-a> to select all text in the current buffer
+vim.keymap.set({ 'n', 'v' }, '<M-S-a>', '<Esc>ggVG', { desc = 'Select all text in the current buffer' })
+
+-- Map <M-S-y> to copy the selected text to the system clipboard "+
+vim.keymap.set({ 'v' }, '<M-S-y>', '"+y"', { desc = 'Yank selected text to the system clipboard' })
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
