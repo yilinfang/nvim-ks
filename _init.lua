@@ -283,19 +283,19 @@ require('lazy').setup({
   -- options to `gitsigns.nvim`.
   --
   -- See `:help gitsigns` to understand what the configuration keys do
-  { -- Adds git related signs to the gutter, as well as utilities for managing changes
-    'lewis6991/gitsigns.nvim',
-    event = { 'BufReadPost', 'BufWritePost', 'BufNewFile' },
-    opts = {
-      signs = {
-        add = { text = '+' },
-        change = { text = '~' },
-        delete = { text = '_' },
-        topdelete = { text = '‾' },
-        changedelete = { text = '~' },
-      },
-    },
-  },
+  -- { -- Adds git related signs to the gutter, as well as utilities for managing changes
+  --   'lewis6991/gitsigns.nvim',
+  --   event = { 'BufReadPost', 'BufWritePost', 'BufNewFile' },
+  --   opts = {
+  --     signs = {
+  --       add = { text = '+' },
+  --       change = { text = '~' },
+  --       delete = { text = '_' },
+  --       topdelete = { text = '‾' },
+  --       changedelete = { text = '~' },
+  --     },
+  --   },
+  -- },
 
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
   --
@@ -477,6 +477,13 @@ require('lazy').setup({
   },
 
   -- LSP Plugins
+  -- HACK: Maoson.nvim
+  {
+    'williamboman/mason.nvim',
+    config = function()
+      require('mason').setup()
+    end,
+  },
   {
     -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
     -- used for completion, annotations and signatures of Neovim apis
@@ -497,7 +504,8 @@ require('lazy').setup({
       -- Automatically install LSPs and related tools to stdpath for Neovim
       -- Mason must be loaded before its dependents so we need to set it up here.
       -- NOTE: `opts = {}` is the same as calling `require('mason').setup({})`
-      { 'williamboman/mason.nvim', opts = {} },
+      -- HACK:
+      -- { 'williamboman/mason.nvim', opts = {} },
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
@@ -1036,8 +1044,19 @@ require('lazy').setup({
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim
       require('mini.comment').setup()
+      require('mini.diff').setup {
+        view = {
+          style = 'sign',
+          signs = {
+            add = '▎',
+            change = '▎',
+            delete = '',
+          },
+        },
+      }
       require('mini.move').setup()
       require('mini.pairs').setup()
+      require('mini.surround').setup()
     end,
   },
   { -- Highlight, edit, and navigate code
@@ -1110,7 +1129,7 @@ require('lazy').setup({
   -- In normal mode type `<space>sh` then write `lazy.nvim-plugin`
   -- you can continue same window with `<space>sr` which resumes last telescope search
 
-  -- NOTE: Customized Plugins
+  -- HACK: Customized Plugins
 
   { -- snacks.nvim
     'folke/snacks.nvim',
@@ -1119,29 +1138,29 @@ require('lazy').setup({
     --@type snacks.Config
     opts = {
       bigfile = { enabled = true },
-      --       dashboard = {
-      --         enabled = true,
-      --         preset = {
-      --           header = [[
-      -- ██╗  ██╗ █████╗ ██████╗ ██████╗  ██████╗ ██████╗ ██████╗ ███████╗ ██████╗ ██████╗ ██████╗ ███████╗██████╗
-      -- ██║  ██║██╔══██╗██╔══██╗██╔══██╗██╔════╝██╔═══██╗██╔══██╗██╔════╝██╔════╝██╔═══██╗██╔══██╗██╔════╝██╔══██╗
-      -- ███████║███████║██████╔╝██║  ██║██║     ██║   ██║██████╔╝█████╗  ██║     ██║   ██║██║  ██║█████╗  ██████╔╝
-      -- ██╔══██║██╔══██║██╔══██╗██║  ██║██║     ██║   ██║██╔══██╗██╔══╝  ██║     ██║   ██║██║  ██║██╔══╝  ██╔══██╗
-      -- ██║  ██║██║  ██║██║  ██║██████╔╝╚██████╗╚██████╔╝██║  ██║███████╗╚██████╗╚██████╔╝██████╔╝███████╗██║  ██║
-      -- ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝  ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝
-      --           ]],
-      --         },
-      --       },
+      dashboard = {
+        enabled = true,
+        preset = {
+          header = [[
+      ██╗  ██╗ █████╗ ██████╗ ██████╗  ██████╗ ██████╗ ██████╗ ███████╗ ██████╗ ██████╗ ██████╗ ███████╗██████╗
+      ██║  ██║██╔══██╗██╔══██╗██╔══██╗██╔════╝██╔═══██╗██╔══██╗██╔════╝██╔════╝██╔═══██╗██╔══██╗██╔════╝██╔══██╗
+      ███████║███████║██████╔╝██║  ██║██║     ██║   ██║██████╔╝█████╗  ██║     ██║   ██║██║  ██║█████╗  ██████╔╝
+      ██╔══██║██╔══██║██╔══██╗██║  ██║██║     ██║   ██║██╔══██╗██╔══╝  ██║     ██║   ██║██║  ██║██╔══╝  ██╔══██╗
+      ██║  ██║██║  ██║██║  ██║██████╔╝╚██████╗╚██████╔╝██║  ██║███████╗╚██████╗╚██████╔╝██████╔╝███████╗██║  ██║
+      ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝  ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝
+                ]],
+        },
+      },
       indent = { enable = true },
       quickfile = { enabled = true, exlucde = { 'latex' } },
     },
   },
 
-  -- {
-  --   'folke/persistence.nvim',
-  --   event = 'BufReadPre',
-  --   opts = {},
-  -- },
+  {
+    'folke/persistence.nvim',
+    event = 'BufReadPre',
+    opts = {},
+  },
 
   { -- copilot.lua
     'zbirenbaum/copilot.lua',
