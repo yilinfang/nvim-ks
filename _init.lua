@@ -726,6 +726,9 @@ require('lazy').setup({
             },
           },
         },
+
+        -- HACK:
+
         -- Pyright
         pyright = {},
         -- Ruff
@@ -844,6 +847,7 @@ require('lazy').setup({
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
+        -- HACK:
         fish = { 'fish_indent' },
         sh = { 'shfmt' },
         python = {
@@ -998,6 +1002,7 @@ require('lazy').setup({
     --   -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
     --   vim.cmd.colorscheme 'tokyonight-night'
     -- end,
+    -- HACK:
     'craftzdog/solarized-osaka.nvim',
     lazy = false,
     priority = 1000,
@@ -1048,6 +1053,7 @@ require('lazy').setup({
 
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim
+      -- HACK:
       require('mini.comment').setup()
       require('mini.diff').setup {
         view = {
