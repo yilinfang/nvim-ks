@@ -729,7 +729,7 @@ require('lazy').setup({
           },
         },
 
-        -- HACK:: Other LSPs
+        -- HACK: Other LSPs
 
         -- Pyright
         pyright = {},

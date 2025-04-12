@@ -6,6 +6,15 @@ For the plugins I use, check the [`lazy-lock.json`](lazy-lock.json).
 
 For the other tools used in my PDE([Personal Development Environment](https://youtu.be/QMVIJhC9Veg?si=VgJQLBVTIYmNjVSDs)), check my [PDE bootstrap scripts](https://github.com/yilinfang/pde-starter).
 
+## Language support
+
+- Json
+- Lua
+- Markdown
+- Python
+- Shell
+- Toml
+
 ## Usage
 
 **Option 1: Clone the repository**
