@@ -184,9 +184,6 @@ vim.opt.scrolloff = 10
 -- See `:help 'confirm'`
 vim.opt.confirm = true
 
--- HACK: Spell checking
-vim.opt_local.spell = true
-
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
@@ -246,6 +243,16 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- HACK: Check for spell in text filetypes
+vim.api.nvim_create_autocmd('FileType', {
+  desc = 'Check for spell in text filetypes',
+  group = vim.api.nvim_create_augroup('kickstart-spell-check', {clear = true}),
+  pattern = { 'text', 'plaintex', 'typst', 'gitcommit', 'markdown' },
+  callback = function()
+    vim.opt_local.wrap = true
+    vim.opt_local.spell = true
+  end,
+})
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
