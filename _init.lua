@@ -113,10 +113,13 @@ vim.opt.showmode = false
 -- Sync clipboard between OS and Neovim.
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
 --  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
+--  See `:help 'clipboard'
+-- vim.schedule(function()
+--   vim.opt.clipboard = 'unnamedplus'
+-- end)
 -- HACK: OSC 52
 vim.schedule(function()
-  -- Disable paster from systerm clipboard when throught OSC 52
+  -- Disable paster from system clipboard when through OSC 52
   if vim.env.SSH_TTY then
     vim.g.clipboard = {
       name = 'Customized OSC 52',
@@ -181,7 +184,7 @@ vim.opt.scrolloff = 10
 -- See `:help 'confirm'`
 vim.opt.confirm = true
 
--- HACK: Specll checking
+-- HACK: Spell checking
 vim.opt_local.spell = true
 
 -- [[ Basic Keymaps ]]
@@ -911,12 +914,13 @@ require('lazy').setup({
           -- `friendly-snippets` contains a variety of premade snippets.
           --    See the README about individual language/framework/plugin snippets:
           --    https://github.com/rafamadriz/friendly-snippets
-          -- {
-          --   'rafamadriz/friendly-snippets',
-          --   config = function()
-          --     require('luasnip.loaders.from_vscode').lazy_load()
-          --   end,
-          -- },
+          -- HACK: Add friendly-snippets
+          {
+            'rafamadriz/friendly-snippets',
+            config = function()
+              require('luasnip.loaders.from_vscode').lazy_load()
+            end,
+          },
         },
         opts = {},
       },
@@ -1160,7 +1164,7 @@ require('lazy').setup({
 
   -- HACK: Customized Plugins
 
-  { -- Linting
+  { -- nvim-lint
     'mfussenegger/nvim-lint',
     event = { 'BufReadPre', 'BufNewFile' },
     config = function()
@@ -1244,7 +1248,7 @@ require('lazy').setup({
     },
   },
 
-  {
+  { -- persistence.nvim
     'folke/persistence.nvim',
     event = 'BufReadPre',
     opts = {},
