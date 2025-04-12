@@ -114,9 +114,9 @@ vim.opt.showmode = false
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
+-- HACK: OSC 52
 vim.schedule(function()
   -- Disable paster from systerm clipboard when throught OSC 52
-  --  Fix the yanky performance issue when using OSC 52
   if vim.env.SSH_TTY then
     vim.g.clipboard = {
       name = 'Customized OSC 52',
@@ -189,7 +189,7 @@ vim.opt.confirm = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '<leader>x', vim.diagnostic.setloclist, { desc = 'Open diagnostic Quickfi[x] list' })
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -289,6 +289,7 @@ require('lazy').setup({
   -- options to `gitsigns.nvim`.
   --
   -- See `:help gitsigns` to understand what the configuration keys do
+  -- HACK: Replace gitsigns with mini.diff
   -- { -- Adds git related signs to the gutter, as well as utilities for managing changes
   --   'lewis6991/gitsigns.nvim',
   --   event = { 'BufReadPost', 'BufWritePost', 'BufNewFile' },
@@ -483,7 +484,7 @@ require('lazy').setup({
   },
 
   -- LSP Plugins
-  -- HACK: Maoson.nvim
+  -- HACK: Start Mason.nvim in start
   {
     'williamboman/mason.nvim',
     config = function()
@@ -510,7 +511,8 @@ require('lazy').setup({
       -- Automatically install LSPs and related tools to stdpath for Neovim
       -- Mason must be loaded before its dependents so we need to set it up here.
       -- NOTE: `opts = {}` is the same as calling `require('mason').setup({})`
-      -- HACK: { 'williamboman/mason.nvim', opts = {} },
+      -- HACK: Start Mason.nvim in start
+      -- { 'williamboman/mason.nvim', opts = {} },
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
@@ -727,7 +729,7 @@ require('lazy').setup({
           },
         },
 
-        -- HACK:
+        -- HACK:: Other LSPs
 
         -- Pyright
         pyright = {},
@@ -847,7 +849,7 @@ require('lazy').setup({
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
-        -- HACK:
+        -- HACK: Other formatters
         fish = { 'fish_indent' },
         sh = { 'shfmt' },
         python = {
@@ -1053,7 +1055,7 @@ require('lazy').setup({
 
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim
-      -- HACK:
+      -- HACK: Other Mini modules
       require('mini.comment').setup()
       require('mini.diff').setup {
         view = {
