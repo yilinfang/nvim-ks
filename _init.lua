@@ -1018,7 +1018,18 @@ require('lazy').setup({
   },
 
   -- Highlight todo, notes, etc in comments
-  { 'folke/todo-comments.nvim', event = { 'BufReadPost', 'BufWritePost', 'BufNewFile' }, dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
+  -- HACK: { 'folke/todo-comments.nvim', event = { 'BufReadPost', 'BufWritePost', 'BufNewFile' }, dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
+  {
+    'folke/todo-comments.nvim',
+    event = { 'BufReadPost', 'BufWritePost', 'BufNewFile' },
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    config = function()
+      require('todo-comments').setup { signs = false }
+      -- Set keymaps
+      vim.keymap.set('n', '<leader>st', '<Cmd>TodoTelescope<CR>', { desc = '[S]earch [T]odos with Telescope' })
+      vim.keymap.set('n', '<leader>qt', '<Cmd>TodoQuickFix<CR>', { desc = 'Open [Q]uickfix for [T]odo' })
+    end,
+  },
 
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
