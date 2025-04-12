@@ -1004,7 +1004,7 @@ require('lazy').setup({
     --   -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
     --   vim.cmd.colorscheme 'tokyonight-night'
     -- end,
-    -- HACK:
+    -- HACK: Change the colorscheme
     'craftzdog/solarized-osaka.nvim',
     lazy = false,
     priority = 1000,
