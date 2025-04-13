@@ -246,7 +246,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 -- HACK: Check for spell in text filetypes
 vim.api.nvim_create_autocmd('FileType', {
   desc = 'Check for spell in text filetypes',
-  group = vim.api.nvim_create_augroup('kickstart-spell-check', {clear = true}),
+  group = vim.api.nvim_create_augroup('kickstart-spell-check', { clear = true }),
   pattern = { 'text', 'plaintex', 'typst', 'gitcommit', 'markdown' },
   callback = function()
     vim.opt_local.wrap = true
@@ -1035,7 +1035,7 @@ require('lazy').setup({
   },
 
   -- Highlight todo, notes, etc in comments
-  -- HACK: { 'folke/todo-comments.nvim', event = { 'BufReadPost', 'BufWritePost', 'BufNewFile' }, dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
+  -- HACK: { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
   {
     'folke/todo-comments.nvim',
     event = { 'BufReadPost', 'BufWritePost', 'BufNewFile' },
