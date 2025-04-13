@@ -93,6 +93,17 @@ vim.g.maplocalleader = ' '
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
+-- HACK: Telescope excluded folders
+vim.g.exclude_folders = {
+  '.git',
+  '.idea',
+  '.vscode',
+  'build',
+  'dist',
+  'node_modules',
+  'vendor',
+}
+
 -- [[ Setting options ]]
 -- See `:help vim.opt`
 -- NOTE: You can change these options as you wish!
@@ -436,6 +447,33 @@ require('lazy').setup({
 
       -- [[ Configure Telescope ]]
       -- See `:help telescope` and `:help telescope.setup()`
+      -- HACK: Telescope custom settings
+      local exclude_folders = vim.g.exclude_folders or {}
+      -- output rg_exclude_patterns
+      local vimgrep_arguments = {
+        'rg',
+        '--color=never',
+        '--follow', -- Follow symbolic links
+        '--hidden', -- Search for hidden files
+        '--no-heading', -- Don't group matches by each file
+        '--with-filename', -- Print the file path with the matched lines
+        '--line-number', -- Show line numbers
+        '--column', -- Show column numbers
+        '--smart-case', -- Smart case search
+      }
+      for _, folder in ipairs(exclude_folders) do
+        table.insert(vimgrep_arguments, '--glob=!**/' .. folder .. '/*')
+      end
+      local fd_excutable = vim.fn.executable 'fd' == 1 and 'fd' or 'fdfind'
+      local find_command = {
+        fd_excutable,
+        '--color=never',
+        '--type=f', -- Only search for files
+        '--hidden', -- Search hidden files
+      }
+      for _, folder in ipairs(exclude_folders) do
+        table.insert(find_command, '--exclude=' .. folder)
+      end
       require('telescope').setup {
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
@@ -446,48 +484,17 @@ require('lazy').setup({
         --   },
         -- },
         -- pickers = {}
-        -- HACK: Telescope custom settings
+
         defaults = {
           -- configure to use ripgrep
-          vimgrep_arguments = {
-            'rg',
-            '--color=never',
-            '--follow', -- Follow symbolic links
-            '--hidden', -- Search for hidden files
-            '--no-heading', -- Don't group matches by each file
-            '--with-filename', -- Print the file path with the matched lines
-            '--line-number', -- Show line numbers
-            '--column', -- Show column numbers
-            '--smart-case', -- Smart case search
-
-            -- Exclude some patterns from search
-            '--glob=!**/.git/*',
-            '--glob=!**/.idea/*',
-            '--glob=!**/.vscode/*',
-            '--glob=!**/build/*',
-            '--glob=!**/dist/*',
-            '--glob=!**/yarn.lock',
-            '--glob=!**/package-lock.json',
-          },
+          vimgrep_arguments = vimgrep_arguments,
         },
         pickers = {
           find_files = {
             hidden = true,
             -- needed to exclude some files & dirs from general search
             -- when not included or specified in .gitignore
-            find_command = {
-              'rg',
-              '--color=never',
-              '--files',
-              '--hidden',
-              '--glob=!**/.git/*',
-              '--glob=!**/.idea/*',
-              '--glob=!**/.vscode/*',
-              '--glob=!**/build/*',
-              '--glob=!**/dist/*',
-              '--glob=!**/yarn.lock',
-              '--glob=!**/package-lock.json',
-            },
+            find_command = find_command,
           },
         },
         extensions = {
