@@ -1044,7 +1044,6 @@ require('lazy').setup({
       require('todo-comments').setup { signs = false }
       -- Set keymaps
       vim.keymap.set('n', '<leader>st', '<Cmd>TodoTelescope<CR>', { desc = '[S]earch [T]odos with Telescope' })
-      vim.keymap.set('n', '<leader>qt', '<Cmd>TodoQuickFix<CR>', { desc = 'Open [Q]uickfix for [T]odo' })
     end,
   },
 
