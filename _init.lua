@@ -1086,7 +1086,7 @@ require('lazy').setup({
     event = { 'BufReadPost', 'BufWritePost', 'BufNewFile' },
     dependencies = { 'nvim-lua/plenary.nvim' },
     config = function()
-      require('todo-comments').setup { signs = false }
+      require('todo-comments').setup { signs = true }
       -- Set keymaps
       vim.keymap.set('n', '<leader>st', '<Cmd>TodoTelescope<CR>', { desc = '[S]earch [T]odos with Telescope' })
     end,
