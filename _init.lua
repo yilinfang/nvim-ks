@@ -1035,7 +1035,8 @@ require('lazy').setup({
   },
 
   -- Highlight todo, notes, etc in comments
-  -- HACK: { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
+  -- { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
+  -- HACK: todo-comments
   {
     'folke/todo-comments.nvim',
     event = { 'BufReadPost', 'BufWritePost', 'BufNewFile' },
