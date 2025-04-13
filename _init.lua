@@ -462,7 +462,7 @@ require('lazy').setup({
         '--smart-case', -- Smart case search
       }
       for _, folder in ipairs(exclude_folders) do
-        table.insert(vimgrep_arguments, '--glob=!**/' .. folder .. '/*')
+        vim.list_extend(vimgrep_arguments, { '--glob', '!**/' .. folder .. '/*' })
       end
       local fd_excutable = vim.fn.executable 'fd' == 1 and 'fd' or 'fdfind'
       local find_command = {
@@ -472,7 +472,7 @@ require('lazy').setup({
         '--hidden', -- Search hidden files
       }
       for _, folder in ipairs(exclude_folders) do
-        table.insert(find_command, '--exclude=' .. folder)
+        vim.list_extend(find_command, { '--exclude', folder })
       end
       require('telescope').setup {
         -- You can put your default mappings / updates / etc. in here
