@@ -470,6 +470,8 @@ require('lazy').setup({
         '--color=never',
         '--type=f', -- Only search for files
         '--hidden', -- Search hidden files
+        '--follow', -- Follow symbolic links
+        '--full-path', -- Print the full path of the files
       }
       for _, folder in ipairs(exclude_folders) do
         vim.list_extend(find_command, { '--exclude', folder })
@@ -520,6 +522,56 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+
+      -- HACK: Telescope custom keymaps
+      -- Grep String among all files
+      vim.keymap.set('n', '<leader>sW', function()
+        builtin.grep_string {
+          vimgrep_arguments = {
+            'rg',
+            '--color=never',
+            '--follow',
+            '--hidden',
+            '--no-heading',
+            '--with-filename',
+            '--line-number',
+            '--column',
+            '--smart-case',
+            '--no-ignore',
+          },
+        }
+      end, { desc = '[S]earch current [W]ord among all files' })
+      -- Live grep among all files
+      vim.keymap.set('n', '<leader>sG', function()
+        builtin.live_grep {
+          vimgrep_arguments = {
+            'rg',
+            '--color=never',
+            '--follow',
+            '--hidden',
+            '--no-heading',
+            '--with-filename',
+            '--line-number',
+            '--column',
+            '--smart-case',
+            '--no-ignore',
+          },
+        }
+      end, { desc = '[S]earch by [G]rep among all files' })
+      -- Seach all files ingnore gitignore
+      vim.keymap.set('n', '<leader>sF', function()
+        builtin.find_files {
+          find_command = {
+            fd_excutable,
+            '--color=never',
+            '--type=f',
+            '--hidden',
+            '--no-ignore',
+            '--follow',
+            '--full-path',
+          },
+        }
+      end, { desc = '[S]earch all [F]iles' })
 
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
