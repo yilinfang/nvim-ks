@@ -195,6 +195,12 @@ vim.opt.scrolloff = 10
 -- See `:help 'confirm'`
 vim.opt.confirm = true
 
+-- HACK: Indent
+vim.opt.smartindent = true
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.expandtab = true
+
 -- HACK: Folding
 vim.opt.smoothscroll = true
 vim.opt.foldmethod = 'expr'
@@ -295,7 +301,8 @@ vim.opt.rtp:prepend(lazypath)
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-  { 'tpope/vim-sleuth', event = { 'BufReadPost', 'BufWritePost', 'BufNewFile' } }, -- Detect tabstop and shiftwidth automatically
+  -- HACK: Disable vim-sleuth use neovim built-in smartindent instead
+  -- { 'tpope/vim-sleuth', event = { 'BufReadPost', 'BufWritePost', 'BufNewFile' } }, -- Detect tabstop and shiftwidth automatically
 
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
@@ -319,20 +326,39 @@ require('lazy').setup({
   -- options to `gitsigns.nvim`.
   --
   -- See `:help gitsigns` to understand what the configuration keys do
-  { -- Adds git related signs to the gutter, as well as utilities for managing changes
+  -- { -- Adds git related signs to the gutter, as well as utilities for managing changes
+  --   'lewis6991/gitsigns.nvim',
+  --   opts = {
+  --     signs = {
+  --       add = { text = '+' },
+  --       change = { text = '~' },
+  --       delete = { text = '_' },
+  --       topdelete = { text = '‾' },
+  --       changedelete = { text = '~' },
+  --     },
+  --   },
+  -- },
+  { -- HACK: Change some signs for gitsigns
     'lewis6991/gitsigns.nvim',
     event = { 'BufReadPost', 'BufWritePost', 'BufNewFile' },
     opts = {
       signs = {
-        add = { text = '+' },
-        change = { text = '~' },
-        delete = { text = '_' },
-        topdelete = { text = '‾' },
-        changedelete = { text = '~' },
+        add = { text = '▎' },
+        change = { text = '▎' },
+        delete = { text = '' },
+        topdelete = { text = '' },
+        changedelete = { text = '▎' },
+        untracked = { text = '▎' },
+      },
+      signs_staged = {
+        add = { text = '▎' },
+        change = { text = '▎' },
+        delete = { text = '' },
+        topdelete = { text = '' },
+        changedelete = { text = '▎' },
       },
     },
   },
-
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
   --
   -- This is often very useful to both group configuration, as well as handle
@@ -1130,16 +1156,13 @@ require('lazy').setup({
     --   -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
     --   vim.cmd.colorscheme 'tokyonight-night'
     -- end,
-    -- HACK: Change the colorscheme
-    'craftzdog/solarized-osaka.nvim',
+    -- HACK: Colorscheme
+    'sainnhe/gruvbox-material',
     lazy = false,
     priority = 1000,
     config = function()
-      ---@diagnostic disable-next-line: missing-fields
-      require('solarized-osaka').setup {
-        transparent = false,
-      }
-      vim.cmd.colorscheme 'solarized-osaka'
+      vim.g.gruvbox_material_enable_italic = true
+      vim.cmd.colorscheme 'gruvbox-material'
     end,
   },
 
@@ -1271,7 +1294,7 @@ require('lazy').setup({
 
   -- HACK: Customized Plugins
 
-  { -- nvim-lint
+  { -- HACK: nvim-lint
     --  Modified from lua/kickstart/plugins/lint.lua
     'mfussenegger/nvim-lint',
     event = { 'BufReadPre', 'BufNewFile' },
@@ -1331,7 +1354,7 @@ require('lazy').setup({
     end,
   },
 
-  { -- snacks.nvim
+  { -- HACK: snacks.nvim
     'folke/snacks.nvim',
     priority = 1000,
     lazy = false,
@@ -1353,16 +1376,19 @@ require('lazy').setup({
       },
       indent = { enable = true },
       quickfile = { enabled = true, exlucde = { 'latex' } },
+      statuscolumn = {
+        enabled = true,
+      },
     },
   },
 
-  { -- persistence.nvim
+  { -- HACK: persistence.nvim
     'folke/persistence.nvim',
     event = 'BufReadPre',
     opts = {},
   },
 
-  { -- copilot.lua
+  { -- HACK: copilot.lua
     'zbirenbaum/copilot.lua',
     cmd = 'Copilot',
     build = ':Copilot auth',
