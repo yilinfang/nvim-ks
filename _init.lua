@@ -1157,12 +1157,14 @@ require('lazy').setup({
     --   vim.cmd.colorscheme 'tokyonight-night'
     -- end,
     -- HACK: Colorscheme
-    'sainnhe/gruvbox-material',
+    'craftzdog/solarized-osaka.nvim',
     lazy = false,
     priority = 1000,
     config = function()
-      vim.g.gruvbox_material_enable_italic = true
-      vim.cmd.colorscheme 'gruvbox-material'
+      require('solarized-osaka').setup {
+        transparent = true,
+      }
+      vim.cmd [[colorscheme solarized-osaka]]
     end,
   },
 
