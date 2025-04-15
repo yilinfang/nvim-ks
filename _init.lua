@@ -668,6 +668,10 @@ require('lazy').setup({
 
       -- Allows extra capabilities provided by blink.cmp
       'saghen/blink.cmp',
+
+      -- HACK: SchemaStore.nvim
+      -- Provides JSON and YAML schemas for LSP
+      { 'b0o/schemastore.nvim', lazy = true, version = false },
     },
     config = function()
       -- Brief aside: **What is LSP?**
