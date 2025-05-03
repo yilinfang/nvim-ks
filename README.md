@@ -1,3 +1,7 @@
+**Please refer to [_README.md](_README.md).**
+
+Below is the initial README of kickstart.nvim for reference.
+
 # kickstart.nvim
 
 ## Introduction
