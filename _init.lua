@@ -1427,7 +1427,7 @@ require('lazy').setup({
     'zbirenbaum/copilot.lua',
     cmd = 'Copilot',
     build = ':Copilot auth',
-    event = 'BufReadPost',
+    event = 'InsertEnter',
     opts = {
       suggestion = {
         enabled = true,
@@ -1442,11 +1442,9 @@ require('lazy').setup({
           dismiss = '<M-d>',
         },
       },
-      copilot_model = 'gpt-4o-copilot',
       panel = { enabled = false },
       filetypes = {
         markdown = true,
-        help = false,
       },
     },
   },
